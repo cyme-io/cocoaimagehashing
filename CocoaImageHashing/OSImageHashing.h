@@ -8,6 +8,7 @@
 
 #import "OSTypes.h"
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -209,6 +210,8 @@ NS_ASSUME_NONNULL_BEGIN
  * @brief A utility conversion method to transform the result of similarImages* methods into an NSDictionary.
  */
 - (NSDictionary<OSImageId *, NSSet<OSImageId *> *> *)dictionaryFromSimilarImagesResult:(NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImageTuples;
+
+- (OSHashType)testHashData:(NSData *)imageData;
 
 @end
 

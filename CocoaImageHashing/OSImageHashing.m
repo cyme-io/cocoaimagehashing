@@ -9,6 +9,11 @@
 #import "OSImageHashing.h"
 #import "OSCategories.h"
 #import "OSSimilaritySearch.h"
+#import "OSFastGraphics.h"
+
+static const NSUInteger OSPHashImageWidthInPixels = 32;
+static const NSUInteger OSPHashImageHeightInPixels = 32;
+static const OSHashDistanceType OSPHashDistanceThreshold = 10;
 
 @implementation OSImageHashing
 
@@ -361,6 +366,19 @@
 {
     NSDictionary<OSImageId *, NSSet<OSImageId *> *> *result = [[OSSimilaritySearch sharedInstance] dictionaryFromSimilarImagesResult:similarImageTuples];
     return result;
+}
+- (OSHashType)testHashData:(NSData *)imageData
+{
+    NSAssert(imageData, @"Image data must not be null");
+    NSData *pixels = [imageData RGBABitmapDataForResizedImageWithWidth:OSPHashImageWidthInPixels
+                                                             andHeight:OSPHashImageHeightInPixels];
+    if (!pixels) {
+        return OSHashTypeError;
+    }
+    double greyscalePixels[OSPHashImageWidthInPixels][OSPHashImageHeightInPixels] = {{0.0}};
+    double dctPixels[OSPHashImageWidthInPixels][OSPHashImageHeightInPixels] = {{0.0}};
+    greyscale_pixels_rgba_32_32([pixels bytes], greyscalePixels);
+    fast_dct_rgba_32_32(greyscalePixels, dctPixels);
 }
 
 @end

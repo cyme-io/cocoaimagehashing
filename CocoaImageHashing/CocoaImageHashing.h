@@ -7,6 +7,7 @@
 //
 
 #import "OSImageHashing.h"
+#import "OSFastGraphics.h"
 
 FOUNDATION_EXPORT double CocoaImageHashingVersionNumber;
 FOUNDATION_EXPORT const unsigned char CocoaImageHashingVersionString[];
