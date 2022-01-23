@@ -9,7 +9,8 @@ let package = Package(
   targets: [
     .target(
       name: "CocoaImageHashing",
-      path: "CocoaImageHashing"
+      path: "CocoaImageHashing",
+      exclude: ["Info.plist"]
     )
   ]
 )
